@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import login_view
+from .views import login_page, login_firebase
 
 urlpatterns = [
-    path('', login_view, name='login'),  # Vista principal que muestra login.html
+    path('', login_page, name='login'), 
+    path('firebase-login/', login_firebase, name='firebase_login'),
 ]

@@ -63,6 +63,8 @@ CORS_ALLOWED_ORIGINS = [
 
 ROOT_URLCONF = 'kodely.urls'
 
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
