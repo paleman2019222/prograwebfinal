@@ -10,36 +10,36 @@ from firebase_admin import auth as firebase_auth, credentials
 
 # Inicializa Firebase solo una vez
 if not firebase_admin._apps:
-    cred = credentials.Certificate("finalprograweb-firebase-adminsdk-fbsvc-b8a8adfa45.json")  # 🔥 Asegurate que el archivo esté en la raíz
+    cred = credentials.Certificate("finalprograweb-firebase-adminsdk-fbsvc-b8a8adfa45.json")  # ← Asegurate que el JSON esté ahí
     firebase_admin.initialize_app(cred)
 
-# Modelo de usuario (custom o por defecto)
+# Tu modelo CustomUser
 User = get_user_model()
 
 @csrf_exempt
 def login_firebase(request):
     if request.method == 'POST':
         try:
-            # Leer el ID token enviado desde el frontend
+            # Leer token enviado desde el frontend
             data = json.loads(request.body)
             id_token = data.get('idToken')
             decoded_token = firebase_auth.verify_id_token(id_token)
 
-            # Extraer datos del usuario
+            # Datos del usuario desde Firebase
             uid = decoded_token['uid']
             name = decoded_token.get('name', '')
             email = decoded_token.get('email', '')
 
-            # Crear o recuperar usuario de Django
+            # Crear o recuperar el usuario usando el modelo personalizado
             user, created = User.objects.get_or_create(
                 username=uid,
                 defaults={
-                    'first_name': name,
                     'email': email,
+                    'name': name,  # 👈 Asegurate que tu CustomUser tenga un campo llamado "name"
                 }
             )
 
-            # Iniciar sesión con Django (guardar en sesión)
+            # Iniciar sesión en Django
             login(request, user)
 
             return JsonResponse({
@@ -47,8 +47,8 @@ def login_firebase(request):
                 'created': created,
                 'user': {
                     'uid': uid,
-                    'name': user.first_name,
-                    'email': user.email
+                    'name': name,
+                    'email': email
                 }
             })
 
@@ -57,7 +57,5 @@ def login_firebase(request):
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
-
-# Vista para renderizar el HTML con el botón de login
 def login_page(request):
     return render(request, "login.html")
