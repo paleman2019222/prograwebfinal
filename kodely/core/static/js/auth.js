@@ -55,7 +55,8 @@ async function login() {
         "Content-Type": "application/json",
         "Accept": "application/json"
       },
-      body: JSON.stringify({ idToken })
+      body: JSON.stringify({ idToken }),
+      credentials: 'include' // 👈 NECESARIO para que Django maneje la sesión correctamente
     });
 
     console.log("Response status:", response.status);
@@ -113,7 +114,7 @@ async function logout() {
     await fetch("http://localhost:8000/accounts/logout", {
 
       method: "GET",
-      //credentials: 'include'  // 👈 NECESARIO para que Django elimine la cookie
+      credentials: 'include'  // 👈 NECESARIO para que Django elimine la cookie
     });
     window.location.href = "/accounts";
   } catch (error) {

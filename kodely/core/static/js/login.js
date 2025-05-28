@@ -42,7 +42,8 @@ async function login() {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({ idToken })
+            body: JSON.stringify({ idToken }),
+            credentials: 'include' // 👈 NECESARIO para que Django maneje la sesión correctamente
         });
 
         console.log("Response status:", response.status);
@@ -59,11 +60,8 @@ async function login() {
         updateStatus("¡Login exitoso!");
         alert("¡Bienvenido " + (data.user?.name || result.user.displayName) + "!");
 
-        if (data.redirect) {
-            window.location.href = data.redirect;
-        } else {
-            updateStatus("Login exitoso, pero sin redirección.");
-        }
+        window.location.href = data.redirect;
+
 
     } catch (error) {
         console.error("Error completo:", error);
