@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Home</title>
-  <style>
+  <head>
+    <title>Home</title>
+    {% load static %}
+    <script type="module" src="{% static 'js/main.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <style>
     body { font-family: sans-serif; padding: 20px; }
     h2 { margin-bottom: 10px; }
     ul { list-style: none; padding: 0; }
@@ -10,20 +15,21 @@
     a { text-decoration: none; color: #2b579a; }
     a:hover { text-decoration: underline; }
   </style>
-</head>
-<body>
-  <p>Ya estás logueado exitosamente</p>
+  </head>
+  <body>
+    <p>Ya estás logueado exitosamente</p>
+    <button id="logout-button">Cerrar sesión</button>
 
-  <h2>Últimos posts</h2>
-  <ul>
-    {% for post in posts %}
+    <h2>Últimos posts</h2>
+    <ul>
+      {% for post in posts %}
       <li>
         <a href="{% url 'ver_post' post.id %}">{{ post.title }}</a><br>
         <small>Autor: {{ post.author.name }}</small>
       </li>
-    {% empty %}
+      {% empty %}
       <p>No hay posts aún.</p>
-    {% endfor %}
-  </ul>
-</body>
+      {% endfor %}
+    </ul>
+  </body>
 </html>
