@@ -59,9 +59,9 @@ def create_post(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-
-       
-
+        
+        
+        
         post = Post.objects.create(
             title=title,
             content=content,
@@ -77,12 +77,16 @@ def home(request):
     posts = Post.objects.all().order_by('-id')
     return render(request, 'home.html', {'posts': posts})
 
+
 @login_required
 def ver_post(request, post_id):
     post = Post.objects.get(id=post_id)
     return render(request, 'ver_post.html', {'post': post})
 
+
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect('/accounts')  
+    return redirect('/accounts') 
+
+
