@@ -59,3 +59,6 @@ def login_firebase(request):
 
 def login_page(request):
     return render(request, "login.html")
+
+def home(request):
+    return render(request, 'home.html') 

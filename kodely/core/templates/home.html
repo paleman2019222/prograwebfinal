@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h2 { margin-bottom: 10px; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    a { text-decoration: none; color: #2b579a; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <p>Ya estás logueado exitosamente</p>
+
+  <h2>Últimos posts</h2>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <a href="{% url 'ver_post' post.id %}">{{ post.title }}</a><br>
+        <small>Autor: {{ post.author.name }}</small>
+      </li>
+    {% empty %}
+      <p>No hay posts aún.</p>
+    {% endfor %}
+  </ul>
+</body>
+</html>

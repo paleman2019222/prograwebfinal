@@ -7,12 +7,12 @@ const googleButton = document.getElementById("google-button");
       apiKey: "AIzaSyDaZ7FDXhf7oYqF5bicCMevQGtfmFvXbJc",
       authDomain: "finalprograweb.firebaseapp.com",
       projectId: "finalprograweb",
-      storageBucket: "finalprograweb.appspot.com", // ✅ CORREGIDO
+      storageBucket: "finalprograweb.appspot.com",
       messagingSenderId: "422643893851",
       appId: "1:422643893851:web:01d7ccc0cf1364c08b617e"
     };
 
-    // ✅ Evitar reinicialización
+   
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
@@ -46,14 +46,15 @@ const googleButton = document.getElementById("google-button");
 
         updateStatus("Enviando al backend...");
 
-        const response = await fetch("http://localhost:8000/accounts/firebase-login/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({ idToken })
-        });
+          const response = await fetch("http://127.0.0.1:8000/accounts/firebase-login/", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({ idToken }),
+            credentials: 'include'  // 👈 NECESARIO para que Django guarde la cookie
+          });
 
         console.log("Response status:", response.status);
 
@@ -65,9 +66,12 @@ const googleButton = document.getElementById("google-button");
 
         const data = await response.json();
         console.log("Backend response:", data);
+        if (data.redirect) {
+          window.location.href = data.redirect;
+      }
 
-        updateStatus("¡Login exitoso!");
-        alert("¡Bienvenido " + (data.user?.name || result.user.displayName) + "!");
+       updateStatus("¡Login exitoso!");
+window.location.href = "/accounts/home/";  // o la ruta a la que quieras redirigir
 
       } catch (error) {
         console.error("Error completo:", error);

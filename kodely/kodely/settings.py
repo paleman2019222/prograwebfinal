@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_URL = '/accounts'
+
+
 
 # Application definition
 
@@ -53,12 +56,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "http://127.0.0.1:8000",
+     "http://localhost:8000",
     "file://",  # Para archivos HTML locales
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8000",
 ]
 
 ROOT_URLCONF = 'kodely.urls'
@@ -112,6 +119,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
