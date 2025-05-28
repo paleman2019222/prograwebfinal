@@ -1,0 +1,99 @@
+/* login.css */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F6F6F6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #003777;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+button {
+  background-color: #003777;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #002a5a;
+}
+
+button:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48L3N2Zz4=');
+  background-size: contain;
+}
+
+#status {
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* Texto secundario */
+body:after {
+  content: "Al registrarse, usted acepta nuestras políticas de privacidad, términos de uso y código de contacto.";
+  display: block;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 30px;
+  max-width: 300px;
+  line-height: 1.4;
+}
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+.kodely-logo {
+  display: inline-flex;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 28px; /* Ajustado para mantener buena relación de aspecto */
+  line-height: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px #003777;
+}
+
+.kodely-kode {
+  background-color: #003777; /* Azul primario */
+  color: white;
+  padding: 8px 10px;
+}
+
+.kodely-ly {
+  background-color: white;
+  color: #003777;
+  padding: 8px 10px;
+  align-self: center;
+}
