@@ -10,7 +10,7 @@ async function logout() {
         await fetch("http://localhost:8000/accounts/logout", {
 
             method: "GET",
-            credentials: 'include'  // 👈 NECESARIO para que Django elimine la cookie
+            //credentials: 'include'  // 👈 NECESARIO para que Django elimine la cookie
         });
         window.location.href = "/accounts";
     } catch (error) {

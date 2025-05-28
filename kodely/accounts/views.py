@@ -72,7 +72,7 @@ def create_post(request):
 
 def login_page(request):
     return render(request, "login.html")
-@login_required
+
 def home(request):
     posts = Post.objects.all().order_by('-id')
     return render(request, 'home.html', {'posts': posts})
