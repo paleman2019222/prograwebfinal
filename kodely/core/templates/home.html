@@ -30,7 +30,7 @@
     </style>
   </head>
   <body>
-    <p>Ya estás logueado exitosamente</p>
+
     {% if request.user.is_authenticated %}
     <button id="logout-button" class="btn btn-login">Cerrar sesión</button><br>
     <span>Bienvenido, {{ request.user.name }}</span>
@@ -38,6 +38,7 @@
     <a href="{% url 'login_page' %}" class="btn btn-login">Iniciar sesión</a>
     {% endif %}
     <h1>Bienvenido a Kodely</h1>
+
     <h2>Últimos posts</h2>
     <ul>
       {% for post in posts %}
