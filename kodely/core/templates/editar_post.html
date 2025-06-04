@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Editar Post</title>
+</head>
+<body>
+  <h2>Editar Publicación</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label>Título:</label><br>
+    <input type="text" name="title" value="{{ post.title }}"><br><br>
+    <label>Contenido:</label><br>
+    <textarea name="content" rows="10" cols="50">{{ post.content }}</textarea><br><br>
+    <button type="submit">Guardar Cambios</button>
+  </form>
+  <a href="{% url 'perfil' %}">Cancelar</a>
+</body>
+</html>

@@ -117,3 +117,31 @@ def reaccionar_post(request, post_id):
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+    
+    #Para la vista del perfil del usuario jeje
+@login_required
+def perfil_usuario(request):
+    usuario = request.user
+    posts_usuario = Post.objects.filter(author=usuario).order_by('-created_at')
+    return render(request, 'perfil.html', {
+        'usuario': usuario,
+        'posts': posts_usuario
+    })
+#para editar el post en base al perfil
+@login_required
+def editar_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id, author=request.user)
+
+    if request.method == 'POST':
+        post.title = request.POST.get('title')
+        post.content = request.POST.get('content')
+        post.save()
+        return redirect('perfil')
+
+    return render(request, 'editar_post.html', {'post': post})
+#para eliminar un post
+@login_required
+def eliminar_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id, author=request.user)
+    post.delete()
+    return redirect('perfil')
