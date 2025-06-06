@@ -3,7 +3,7 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 from django.contrib.auth.decorators import login_required
 from django.middleware.csrf import get_token
 import json
@@ -43,8 +43,10 @@ def login_firebase(request):
             print("LOGIN ejecutado. ¿User en sesión?", request.user.is_authenticated)
             request.session['usuario_autenticado'] = True
             return JsonResponse({'message': 'Login exitoso', 'redirect': '/home/'})
+             
 
         except Exception as e:
+            print(f"Error en login_firebase: {e}")
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
@@ -54,7 +56,6 @@ def create_post(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         content = request.POST.get('content')
-
         post = Post.objects.create(
             title=title,
             content=content,
@@ -69,6 +70,19 @@ def login_page(request):
 def home(request):
     posts = Post.objects.all().order_by('-id')
     return render(request, 'home.html', {'posts': posts})
+
+
+@login_required
+def ver_post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'ver_post.html', {'post': post})
+
+
+@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('/accounts') 
+
 
 @login_required
 def ver_post(request, post_id):

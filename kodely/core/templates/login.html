@@ -1,25 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Login con Google</title>
-  {%load static%}
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="{% static 'css/login.css'%}">
-  <script type="module" src="{% static 'js/auth.js' %}" defer></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <meta name="viewport" content="width=device-width" , initial-scale="1.0">
- 
-  
-</head>
-<body>
-  <div class="kodely-logo">
-  <span class="kodely-kode">Kode</span><span class="kodely-ly">ly</span>
-</div>
+  <head>
+    <title>Login con Google</title>
+    {%load static%}
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/login.css'%}">
+    <script type="module" src="{% static 'js/main.js' %}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <meta name="viewport" content="width=device-width" , initial-scale="1.0">
 
-  <h2>Iniciar sesión con Google</h2>
-  <button id="google-button">Login con Google</button>
-  <div id="status"></div>
+  </head>
+  <body>
+    <div class="kodely-logo">
+      <span class="kodely-kode">Kode</span><span class="kodely-ly">ly</span>
+    </div>
 
-</body>
+    <h2>Iniciar sesión con Google</h2>
+    <button id="google-button">Login con Google</button>
+    <div id="status"></div>
+
+  </body>
 </html>
