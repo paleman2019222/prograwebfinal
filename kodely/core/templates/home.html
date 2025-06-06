@@ -1,74 +1,97 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
-    <title>Home</title>
-    {% load static %}
-    <script type="module" src="{% static 'js/main.js' %}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
-    <style>
-      body { font-family: sans-serif; padding: 20px; }
-      h2 { margin-bottom: 10px; }
-      ul { list-style: none; padding: 0; }
-      li { margin-bottom: 10px; }
-      a { text-decoration: none; color: #2b579a; }
-      a:hover { text-decoration: underline; }
-      .btn-login {
-        display: inline-block;
-          padding: 10px 20px;
-          background-color: #2b579a;
-          color: white;
-          border: none;
-          border-radius: 5px;
-          text-decoration: none;
-          cursor: pointer;
-        }
-        .btn-login:hover {
-          background-color: #20457a;
-        }
-    </style>
-  </head>
-  <body>
-
 <head>
   <title>Home</title>
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    h2 { margin-bottom: 10px; }
-    ul { list-style: none; padding: 0; }
-    li { margin-bottom: 10px; }
-    a { text-decoration: none; color: #2b579a; }
-    a:hover { text-decoration: underline; }
-  </style>
+  {% load static %}
+  <script type="module" src="{% static 'js/main.js' %}" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-  <div style="margin-bottom: 20px;">
-  <a href="/perfil/" style="display:inline-block; padding:10px 15px; background:#28a745; color:white; border-radius:5px; text-decoration:none; margin-right:10px;">Perfil</a>
-  <a href="/crear-post/" style="display:inline-block; padding:10px 15px; background:#17a2b8; color:white; border-radius:5px; text-decoration:none;">Crear Post</a>
-</div>
 
-  <p>Ya estás logueado exitosamente</p>
+  <head>
+    <title>Home</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 20px;
+      }
 
-    {% if request.user.is_authenticated %}
-    <button id="logout-button" class="btn btn-login">Cerrar sesión</button><br>
-    <span>Bienvenido, {{ request.user.name }}</span>
-    {% else %}
-    <a href="{% url 'login_page' %}" class="btn btn-login">Iniciar sesión</a>
-    {% endif %}
-    <h1>Bienvenido a Kodely</h1>
+      h2 {
+        margin-bottom: 10px;
+      }
 
-    <h2>Últimos posts</h2>
-    <ul>
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #2b579a;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="logo">
+        <img class="logo_kodely" src="{% static 'img/logo_kodely.svg' %}" alt="Kodely Logo">
+      </div>
+      <div class="header-actions">
+        {% if request.user.is_authenticated %}
+        <button id="logout-button" class="btn-login">Cerrar sesión</button>
+        {% if request.user.photo_url %}
+        <img class="user_photo" src="{{ request.user.photo_url }}" alt="Foto de perfil" width="100">
+        {% endif %}
+        {% else %}
+        <a href="{% url 'login_page' %}" class="btn-login">Iniciar Sesión</a>
+
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Posts -->
+    <div class="posts-container">
       {% for post in posts %}
-      <li>
-        <a href="{% url 'ver_post' post.id %}">{{ post.title }}</a><br>
-        <small>Autor: {{ post.author.name }}</small>
-      </li>
+      <div class="post-card {% if forloop.first %}featured{% endif %}">
+        <div class="post-header">
+          <div class="avatar">
+            {% if post.author.photo_url %}
+            <img src="{{ post.author.photo_url }}" alt="Avatar de {{ post.author.name }}" class="user_photo">
+            {% endif %}
+          </div>
+          <div class="author-info">
+            <span class="author-name">{{ post.author.name }}</span>
+            <span class="post-date">{{ post.created_at|date:"M/d" }}</span>
+          </div>
+        </div>
+        <div class="post-title">
+          <a href="{% url 'ver_post' post.id %}">{{ post.title }}</a>
+        </div>
+        <div class="post-reactions">
+          {{ post.reactions.count }} Reacciones
+        </div>
+      </div>
       {% empty %}
-      <p>No hay posts aún.</p>
+      <div class="post-card">
+        <div class="post-title">No hay posts aún.</div>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
   </body>
+
 </html>

@@ -1,0 +1,222 @@
+/* Reset básico */
+body {
+    background: #f5f5f5;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 18px 32px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+
+
+
+.search-bar input[type="text"] {
+    width: 350px;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    outline: none;
+    font-size: 1rem;
+}
+
+.search-bar button {
+    padding: 8px 14px;
+    border: 1px solid #ccc;
+    border-left: none;
+    background: #fff;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-login,
+.btn-signup {
+    padding: 7px 18px;
+    border-radius: 5px;
+    border: 1.5px solid #2b579a;
+    background: #fff;
+    color: #2b579a;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-login:hover,
+.btn-signup:hover {
+    background: #2b579a;
+    color: #fff;
+}
+
+/* Posts List */
+.posts-container {
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Post Card */
+.post-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 28px 32px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.04);
+    border: 2.5px solid transparent;
+    transition: border 0.2s;
+}
+
+.post-card.featured {
+    border: 2.5px solid #2b8fff;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #bdbdbd;
+    margin-right: 14px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.author-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.post-date {
+    font-size: 0.95rem;
+    color: #757575;
+}
+
+.post-title {
+    font-size: 1.18rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.post-reactions {
+    font-size: 0.98rem;
+    color: #757575;
+    margin-top: 10px;
+}
+
+.logo_kodely {
+    height: 40px;
+    margin-right: 8px;
+}
+
+.user_photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #bdbdbd;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 10px 8px;
+    }
+
+    .logo {
+        justify-content: center;
+        margin-bottom: 6px;
+    }
+
+    .search-bar {
+        margin: 0 0 10px 0;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-bar input[type="text"] {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .header-actions {
+        align-self: flex-end;
+        justify-content: flex-end;
+        margin-bottom: 6px;
+    }
+
+    .posts-container {
+        padding: 0 2vw;
+        gap: 14px;
+    }
+
+    .post-card {
+        padding: 16px 10px;
+    }
+
+    .user_photo,
+    .avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .logo_kodely {
+        height: 24px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        padding: 6px 2vw;
+    }
+
+    .header {
+        padding: 6px 2vw;
+    }
+
+    .search-bar input[type="text"] {
+        font-size: 0.95rem;
+        padding: 6px 8px;
+    }
+
+    .btn-login,
+    .btn-signup {
+        padding: 5px 10px;
+        font-size: 0.95rem;
+    }
+
+    .post-card {
+        padding: 10px 4px;
+    }
+
+    .author-name {
+        font-size: 1rem;
+    }
+
+    .post-title {
+        font-size: 1rem;
+    }
+}
