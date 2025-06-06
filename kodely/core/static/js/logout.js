@@ -1,4 +1,3 @@
-// logout.js
 import { signOut } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 import { auth } from "./firebase-init.js";
 
@@ -10,7 +9,7 @@ async function logout() {
         await fetch("http://localhost:8000/accounts/logout", {
 
             method: "GET",
-            //credentials: 'include'  // 👈 NECESARIO para que Django elimine la cookie
+            //credentials: 'include' 
         });
         window.location.href = "/accounts";
     } catch (error) {

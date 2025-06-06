@@ -43,7 +43,7 @@ async function login() {
                 "Accept": "application/json"
             },
             body: JSON.stringify({ idToken }),
-            //credentials: 'include' // 👈 NECESARIO para que Django maneje la sesión correctamente
+            //credentials: 'include' 
         });
 
         console.log("Response status:", response.status);
