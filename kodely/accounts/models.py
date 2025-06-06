@@ -53,6 +53,23 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    
+ #modelo para reacciones   
+class Reaction(models.Model):
+    REACTION_CHOICES = [
+        ('like', '👍'),
+        ('wow', '😮'),
+        ('hands', '🙌'),
+        ('fire', '🔥'),
+    ]
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='reactions')
+    type = models.CharField(max_length=10, choices=REACTION_CHOICES)
+    reacted_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        unique_together = ('user', 'post', 'type')  # Solo se puede reaccionar una vez 
+
+    def __str__(self):
+        return f"{self.user.email} → {self.post.title} ({self.type})"
 

@@ -1,3 +1,4 @@
+{% load utils %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,9 @@
     h1 { color: #2b579a; }
     .contenido { background: white; padding: 20px; border-radius: 8px; }
     pre { background: #eee; padding: 10px; overflow-x: auto; border-radius: 6px; }
+    .reacciones form { display: inline; margin-right: 5px; }
+    .reacciones button { font-size: 20px; padding: 5px 10px; border: none; background: none; cursor: pointer; }
+    .conteo-reacciones { margin-top: 10px; }
   </style>
 </head>
 <body>
@@ -20,7 +24,55 @@
     {% endautoescape %}
   </div>
 
+  <!-- Sección de Reacciones -->
+  <div class="reacciones">
+  {% for tipo, emoji in reacciones.items %}
+    <button 
+      class="btn-reaccion" 
+      data-post-id="{{ post.id }}" 
+      data-tipo="{{ tipo }}">
+      {{ emoji }}
+    </button>
+  {% endfor %}
+</div>
+
+  <div class="conteo-reacciones">
+    <p><strong>Reacciones:</strong></p>
+    <ul>
+ {% for emoji, cantidad in conteo_reacciones %}
+  <li>{{ emoji }}: {{ cantidad }}</li>
+{% endfor %}
+</ul>
+
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
+<script>
+  document.querySelectorAll('.btn-reaccion').forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const postId = this.dataset.postId;
+      const tipo = this.dataset.tipo;
+
+      fetch(`/accounts/reaccionar/${postId}/`, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ type: tipo })
+      })
+      .then(response => {
+        if (response.ok) {
+          location.reload();  // Recarga después de reaccionar
+        } else {
+          console.error('Error al reaccionar');
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Home</title>
     {% load static %}
@@ -30,6 +31,25 @@
     </style>
   </head>
   <body>
+
+<head>
+  <title>Home</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    h2 { margin-bottom: 10px; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    a { text-decoration: none; color: #2b579a; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div style="margin-bottom: 20px;">
+  <a href="/perfil/" style="display:inline-block; padding:10px 15px; background:#28a745; color:white; border-radius:5px; text-decoration:none; margin-right:10px;">Perfil</a>
+  <a href="/crear-post/" style="display:inline-block; padding:10px 15px; background:#17a2b8; color:white; border-radius:5px; text-decoration:none;">Crear Post</a>
+</div>
+
+  <p>Ya estás logueado exitosamente</p>
 
     {% if request.user.is_authenticated %}
     <button id="logout-button" class="btn btn-login">Cerrar sesión</button><br>
