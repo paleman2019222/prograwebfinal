@@ -49,11 +49,12 @@
     <!-- Header -->
     <div class="header">
       <div class="logo">
-        <img class="logo_kodely" src="{% static 'img/logo_kodely.svg' %}" alt="Kodely Logo">
+        <img class="logo_kodely" src="{% static 'img/logoKodely.svg' %}" alt="Kodely Logo">
       </div>
       <div class="header-actions">
         {% if request.user.is_authenticated %}
         <button id="logout-button" class="btn-login">Cerrar sesión</button>
+        <a href="{% url 'crear_post' %}" class="btn-login">Crear Post</a>
         {% if request.user.photo_url %}
         <img class="user_photo" src="{{ request.user.photo_url }}" alt="Foto de perfil" width="100">
         {% endif %}

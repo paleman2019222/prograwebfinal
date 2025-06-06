@@ -52,8 +52,31 @@
 </head>
 
 <body>
+
+  <div class="author_details">
+    <img src="{{ post.author.photo_url }}" alt="Avatar de {{ post.author.name }}" class="user_photo">
+    <p><strong>Autor:</strong> {{ post.author.name }}</p>
+  </div>
   <h1>{{ post.title }}</h1>
-  <p><strong>Autor:</strong> {{ post.author.name }}</p>
+
+
+  <!-- Sección de Reacciones -->
+  <div class="reacciones">
+    {% for tipo, emoji in reacciones.items %}
+    <span class="reaccion-conteo">
+      <button class="btn-reaccion" data-post-id="{{ post.id }}" data-tipo="{{ tipo }}">
+        {{ emoji }}
+      </button>
+      <span class="conteo">
+        {% for e, cantidad in conteo_reacciones %}
+        {% if e == emoji %}
+        {{ cantidad }}
+        {% endif %}
+        {% endfor %}
+      </span>
+    </span>
+    {% endfor %}
+  </div>
 
   <div class="contenido" contenteditable="false">
     {% autoescape off %}
@@ -61,24 +84,6 @@
     {% endautoescape %}
   </div>
 
-  <!-- Sección de Reacciones -->
-  <div class="reacciones">
-    {% for tipo, emoji in reacciones.items %}
-    <button class="btn-reaccion" data-post-id="{{ post.id }}" data-tipo="{{ tipo }}">
-      {{ emoji }}
-    </button>
-    {% endfor %}
-  </div>
-
-  <div class="conteo-reacciones">
-    <p><strong>Reacciones:</strong></p>
-    <ul>
-      {% for emoji, cantidad in conteo_reacciones %}
-      <li>{{ emoji }}: {{ cantidad }}</li>
-      {% endfor %}
-    </ul>
-
-  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>

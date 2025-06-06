@@ -88,6 +88,13 @@ pre {
     font-size: 0.95rem;
 }
 
+.user_photo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: #bdbdbd;
+}
+
 /* ================== Responsive ================== */
 @media screen and (max-width: 768px) {
     body {
