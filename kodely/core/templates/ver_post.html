@@ -80,7 +80,7 @@
 
   <div class="contenido" contenteditable="false">
     {% autoescape off %}
-    {{ post.content }}
+    {{ post.content|linebreaks }}
     {% endautoescape %}
   </div>
 

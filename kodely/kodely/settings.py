@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_URL = '/accounts'
+LOGIN_URL = '/accounts/login'
 
 
 
