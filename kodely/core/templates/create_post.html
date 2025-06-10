@@ -1,213 +1,147 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
-  <title>Mini Word PRO con Bloques de Código</title>
+  <title>crear post</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{% static 'css/create_post.css' %}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      background-color: #f4f4f4;
-    }
-
-    header {
-      background-color: #2b579a;
-      color: white;
-      padding: 10px 20px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .container {
-      padding: 20px;
-    }
-
-    .toolbar {
-      background: #fff;
-      border-bottom: 1px solid #ccc;
-      padding: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      border-radius: 4px 4px 0 0;
-    }
-
-    .toolbar button, .toolbar select, .toolbar input[type="color"] {
-      padding: 6px 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: white;
-      cursor: pointer;
-    }
-
-    .toolbar button:hover {
-      background: #f0f0f0;
-    }
-
-    #editor {
-      padding: 20px;
-      background: white;
-      border-radius: 0 0 6px 6px;
-      min-height: 400px;
-      border: 1px solid #ccc;
-      outline: none;
-    }
-
-    pre code {
-      display: block;
-      padding: 10px;
-      background-color: #f6f8fa;
-      border: 1px solid #d1d5da;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: monospace;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      font-size: 16px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-
-    button[type="submit"] {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #2b579a;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button[type="submit"]:hover {
-      background-color: #1e3f73;
-    }
-  </style>
 </head>
+
 <body>
 
-<header>Crear Post</header>
+  <header>
+    <img src="{% static 'img/logoKodely.svg' %}" class="logo_kodely" alt="Kodely Logo">
+    <span class="header-title">Crear Post</span>
 
-<div class="container">
-  <form method="POST" onsubmit="return guardarContenido()">
-    {% csrf_token %}
-    <input type="text" name="title" placeholder="Título del post" required>
-
-    <div class="toolbar">
-      <button type="button" onclick="format('bold')"><b>B</b></button>
-      <button type="button" onclick="format('italic')"><i>I</i></button>
-      <button type="button" onclick="format('underline')"><u>U</u></button>
-      <button type="button" onclick="format('justifyLeft')">⯇</button>
-      <button type="button" onclick="format('justifyCenter')">☰</button>
-      <button type="button" onclick="format('justifyRight')">⯈</button>
-
-      <select onchange="format('fontName', this.value)">
-        <option selected disabled>Fuente</option>
-        <option value="Arial">Arial</option>
-        <option value="Courier New">Courier New</option>
-        <option value="Georgia">Georgia</option>
-        <option value="Times New Roman">Times New Roman</option>
-      </select>
-
-      <select onchange="format('fontSize', this.value)">
-        <option selected disabled>Tamaño</option>
-        <option value="1">10px</option>
-        <option value="2">13px</option>
-        <option value="3">16px</option>
-        <option value="4">18px</option>
-        <option value="5">24px</option>
-        <option value="6">32px</option>
-        <option value="7">48px</option>
-      </select>
-
-      <input type="color" onchange="format('foreColor', this.value)" title="Color de texto">
-      <button type="button" onclick="insertCodeBlock()">{"</>"}</button>
+    <div class="user-photo-box">
+      <a class="btn-home" href="/home">inicio</a>
+      <a href="/perfil/">
+        <img src="{{ request.user.photo_url }}" class="user_photo" alt="Foto de perfil">
+      </a>
     </div>
+  </header>
 
-    <div id="editor" contenteditable="true">Escribe tu documento aquí...</div>
-    <input type="hidden" name="content" id="content">
+  <div class="container">
+    <form method="POST" onsubmit="return guardarContenido()">
+      {% csrf_token %}
+      <input class="title" type="text" name="title" placeholder="Título del post" required>
 
-    <button type="submit">Publicar</button>
-  </form>
-</div>
+      <div class="toolbar">
+        <button type="button" onclick="format('bold')"><b>B</b></button>
+        <button type="button" onclick="format('italic')"><i>I</i></button>
+        <button type="button" onclick="format('underline')"><u>U</u></button>
+        <button type="button" onclick="format('justifyLeft')">⯇</button>
+        <button type="button" onclick="format('justifyCenter')">☰</button>
+        <button type="button" onclick="format('justifyRight')">⯈</button>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-<script>hljs.highlightAll();</script>
+        <select onchange="format('fontName', this.value)">
+          <option selected disabled>Fuente</option>
+          <option value="Arial">Arial</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Times New Roman">Times New Roman</option>
+        </select>
 
-<script>
-  function format(command, value = null) {
-    document.execCommand(command, false, value);
-  }
+        <select onchange="format('fontSize', this.value)">
+          <option selected disabled>Tamaño</option>
+          <option value="1">10px</option>
+          <option value="2">13px</option>
+          <option value="3">16px</option>
+          <option value="4">18px</option>
+          <option value="5">24px</option>
+          <option value="6">32px</option>
+          <option value="7">48px</option>
+        </select>
 
-function insertCodeBlock() {
-  const codeBlock = document.createElement("pre");
-  const code = document.createElement("code");
-  code.classList.add("code-block");
-  code.setAttribute("contenteditable", "true");
-  code.innerText = "// Escribe tu código aquí";
+        <input type="color" onchange="format('foreColor', this.value)" title="Color de texto">
+        <button type="button" onclick="insertCodeBlock()">{"</>"}</button>
+      </div>
 
-  codeBlock.appendChild(code);
+      <div id="editor" contenteditable="true">Escribe tu documento
+        aquí...</div>
+      <input type="hidden" name="content" id="content">
 
-  const paragraph = document.createElement("div");
-  paragraph.innerHTML = "<br>"; 
+      <button type="submit">Publicar</button>
+    </form>
+  </div>
 
-  const range = window.getSelection().getRangeAt(0);
-  range.deleteContents();
-  range.insertNode(paragraph);     
-  range.insertNode(codeBlock);     
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
 
-  // Mover el cursor al final del nuevo espacio
-  const selection = window.getSelection();
-  range.setStart(paragraph, 0);
-  range.setEnd(paragraph, 0);
-  selection.removeAllRanges();
-  selection.addRange(range);
+  <script>
+    function format(command, value = null) {
+      document.execCommand(command, false, value);
+    }
 
-  highlightCode();
-}
+    function insertCodeBlock() {
+      const codeBlock = document.createElement("pre");
+      const code = document.createElement("code");
+      code.classList.add("code-block");
+      code.setAttribute("contenteditable", "true");
+      code.innerText = "// Escribe tu código aquí";
+
+      codeBlock.appendChild(code);
+
+      const paragraph = document.createElement("div");
+      paragraph.innerHTML = "<br>";
+
+      const range = window.getSelection().getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(paragraph);
+      range.insertNode(codeBlock);
+
+      // Mover el cursor al final del nuevo espacio
+      const selection = window.getSelection();
+      range.setStart(paragraph, 0);
+      range.setEnd(paragraph, 0);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      highlightCode();
+    }
 
 
-  function highlightCode() {
-    document.querySelectorAll('pre code').forEach((block) => {
-      hljs.highlightElement(block);
+    function highlightCode() {
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    }
+
+    function guardarContenido() {
+      const editorClone = document.getElementById('editor').cloneNode(true);
+
+      editorClone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+
+      document.getElementById('content').value = editorClone.innerHTML;
+      return true;
+    }
+
+    document.getElementById('editor').addEventListener('keydown', function (e) {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        document.execCommand('insertText', false, '    ');
+      }
     });
-  }
 
-  function guardarContenido() {
-    const editorClone = document.getElementById('editor').cloneNode(true);
+    document.getElementById('editor').addEventListener('paste', function (e) {
+      const sel = window.getSelection();
+      if (!sel.rangeCount) return;
 
-    editorClone.querySelectorAll('[contenteditable]').forEach(el => el.removeAttribute('contenteditable'));
+      const node = sel.anchorNode;
+      const isInsideCode = node && node.parentElement && node.closest("code");
 
-    document.getElementById('content').value = editorClone.innerHTML;
-    return true;
-  }
-
-  document.getElementById('editor').addEventListener('keydown', function(e) {
-    if (e.key === 'Tab') {
-      e.preventDefault();
-      document.execCommand('insertText', false, '    ');
-    }
-  });
-
-  document.getElementById('editor').addEventListener('paste', function(e) {
-    const sel = window.getSelection();
-    if (!sel.rangeCount) return;
-
-    const node = sel.anchorNode;
-    const isInsideCode = node && node.parentElement && node.closest("code");
-
-    if (isInsideCode) {
-      e.preventDefault();
-      const text = (e.clipboardData || window.clipboardData).getData('text/plain');
-      document.execCommand("insertText", false, text);
-    }
-  });
-</script>
+      if (isInsideCode) {
+        e.preventDefault();
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+        document.execCommand("insertText", false, text);
+      }
+    });
+  </script>
 
 </body>
+
 </html>

@@ -1,18 +1,33 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Editar Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/editar_post.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
-  <h2>Editar Publicación</h2>
-  <form method="post">
-    {% csrf_token %}
-    <label>Título:</label><br>
-    <input type="text" name="title" value="{{ post.title }}"><br><br>
-    <label>Contenido:</label><br>
-    <textarea name="content" rows="10" cols="50">{{ post.content }}</textarea><br><br>
-    <button type="submit">Guardar Cambios</button>
-  </form>
-  <a href="{% url 'perfil' %}">Cancelar</a>
+
+  <div class="card">
+    <h2>Editar Publicación</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="title">Título:</label>
+      <input type="text" id="title" name="title" value="{{ post.title }}">
+
+      <label for="content">Contenido:</label>
+      <textarea id="content" name="content" rows="10">{{ post.content}}</textarea>
+
+      <div class="botones">
+        <button type="submit" class="btn-primario">Guardar Cambios</button>
+        <a href="{% url 'perfil' %}" class="btn-secundario">Cancelar</a>
+      </div>
+    </form>
+  </div>
 </body>
+
 </html>

@@ -1,0 +1,142 @@
+/* Estilos generales */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F6F6F6;
+    padding: 30px;
+    margin: 0;
+}
+
+/* Contenedor principal */
+.perfil {
+    background-color: #FFFFFF;
+    padding: 27px;
+    border-radius: 8px;
+    max-width: 86%;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de inicio */
+.boton-inicio {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #003777;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+/* Encabezados */
+h2 {
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 28px;
+    color: #003777;
+    margin-bottom: 15px;
+}
+
+.titulo-publicaciones {
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 22px;
+    color: #003777;
+    margin: 20px 0 15px;
+}
+
+/* Información de usuario */
+.email {
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.foto-perfil {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 2px solid #003777;
+}
+
+.separador {
+    border: none;
+    height: 1px;
+    background-color: #E0E0E0;
+    margin: 20px 0;
+}
+
+/* Tarjetas de posts */
+.post {
+    border: 1px solid #E0E0E0;
+    padding: 20px;
+    margin: 15px 0;
+    background: #FFFFFF;
+    border-radius: 6px;
+    transition: box-shadow 0.3s ease;
+}
+
+.post:hover {
+    box-shadow: 0 4px 8px rgba(0, 55, 119, 0.1);
+}
+
+.post-titulo {
+    font-family: 'Inter';
+    font-weight: 700;
+    font-size: 20px;
+    color: #003777;
+    margin-bottom: 10px;
+}
+
+.post-contenido {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* Botones de acciones */
+.acciones {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.boton {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-family: 'Inter';
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.boton-editar {
+    background-color: #003777;
+    color: white;
+}
+
+.boton-eliminar {
+    background-color: #f44336;
+    color: white;
+}
+
+.boton:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Mensaje sin posts */
+.sin-posts {
+    font-family: 'Inter';
+    font-weight: 300;
+    font-size: 16px;
+    color: #777;
+    font-style: italic;
+}

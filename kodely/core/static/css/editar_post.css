@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F6F6F6;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.card {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    width: 100%;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #003777;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    margin: 20px 0 6px;
+    color: #333;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    resize: vertical;
+    font-family: 'Inter', sans-serif;
+}
+
+.botones {
+    margin-top: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+.btn-primario {
+    background-color: #003777;
+    color: #fff;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-primario:hover {
+    background-color: #002c5c;
+}
+
+.btn-secundario {
+    background-color: transparent;
+    color: #003777;
+    border: 1.5px solid #003777;
+    padding: 0px 24px;
+    border-radius: 6px;
+    height: 40px;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+}
+
+.btn-secundario:hover {
+    background-color: #e6eefc;
+}
+
+.botones .btn-primario,
+.botones .btn-secundario {
+    flex: 1;
+    text-align: center;
+}

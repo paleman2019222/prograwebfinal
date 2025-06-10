@@ -52,10 +52,12 @@
 </head>
 
 <body>
-
-  <div class="author_details">
-    <img src="{{ post.author.photo_url }}" alt="Avatar de {{ post.author.name }}" class="user_photo">
-    <p><strong>Autor:</strong> {{ post.author.name }}</p>
+  <div class="encabezado">
+    <div class="author_details">
+      <img src="{{ post.author.photo_url }}" alt="Avatar de {{ post.author.name }}" class="user_photo">
+      <p><strong>Autor:</strong> {{ post.author.name }}</p>
+    </div>
+    <a href="{% url 'home' %}" class="btn-home">Inicio</a>
   </div>
   <h1>{{ post.title }}</h1>
 

@@ -1,38 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Mi Perfil</title>
-  <style>
-    body { font-family: sans-serif; background: #f1f1f1; padding: 30px; }
-    .perfil { background: white; padding: 20px; border-radius: 10px; }
-    .post { border: 1px solid #ccc; padding: 10px; margin: 10px 0; background: #fff; border-radius: 6px; }
-    .acciones { margin-top: 10px; }
-    a.boton { text-decoration: none; background: #2b579a; color: white; padding: 5px 10px; border-radius: 4px; margin-right: 5px; }
-  </style>
+  <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
   <div class="perfil">
-    <a href="/home/" style="display:inline-block; padding:10px 15px; background:#007BFF; color:white; border-radius:5px; text-decoration:none; margin-bottom:15px;">INICIO</a>
+    <a href="/home/" class="boton-inicio">INICIO</a>
     <h2>Perfil de {{ usuario.name }}</h2>
-    <p><strong>Email:</strong> {{ usuario.email }}</p>
+    <p class="email"><strong>Email:</strong> {{ usuario.email }}</p>
     {% if usuario.photo_url %}
-      <img src="{{ usuario.photo_url }}" alt="Foto de perfil" width="100">
+    <img src="{{ usuario.photo_url }}" alt="Foto de perfil" class="foto-perfil">
     {% endif %}
-    <hr>
-    <h3>Mis publicaciones</h3>
+    <hr class="separador">
+    <h3 class="titulo-publicaciones">Mis publicaciones</h3>
 
     {% for post in posts %}
-      <div class="post">
-        <h4>{{ post.title }}</h4>
-        <p>{{ post.content|truncatechars:100 }}</p>
-        <div class="acciones">
-          <a href="{% url 'editar_post' post.id %}" class="boton">Editar</a>
-          <a href="{% url 'eliminar_post' post.id %}" class="boton" onclick="return confirm('¿Seguro que quieres eliminar este post?')">Eliminar</a>
-        </div>
+    <div class="post">
+      <h4 class="post-titulo">{{ post.title }}</h4>
+
+      <div class="acciones">
+        <a href="{% url 'editar_post' post.id %}" class="boton boton-editar">Editar</a>
+        <a href="{% url 'eliminar_post' post.id %}" onclick="return confirm('¿Seguro que quieres eliminar este post?')"
+          class="boton boton-eliminar">Eliminar</a>
       </div>
+    </div>
     {% empty %}
-      <p>No has creado ningún post todavía.</p>
+    <p class="sin-posts">No has creado ningún post todavía.</p>
     {% endfor %}
   </div>
 </body>
+
 </html>
