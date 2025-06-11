@@ -4,13 +4,13 @@ Kodely es una plataforma web desarrollada con Django, inspirada en dev.to, que p
 
 ---
 
-## 🎯 Objetivo
+## Objetivo
 
 Desarrollar un sistema funcional de publicación de tutoriales técnicos con las funcionalidades esenciales de autenticación, publicación, visualización y reacciones de usuarios, utilizando herramientas modernas como Django, Firebase Authentication y una base de datos MySQL.
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 - Autenticación de usuarios con **Google** vía **Firebase Authentication**.
 - Publicación de tutoriales usando un editor WYSIWYG (sin imágenes).
@@ -20,7 +20,7 @@ Desarrollar un sistema funcional de publicación de tutoriales técnicos con las
 
 ---
 
-## 🧱 Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 - **Backend:** Django (Python)
 - **Frontend:** HTML, CSS, JavaScript
@@ -31,5 +31,5 @@ Desarrollar un sistema funcional de publicación de tutoriales técnicos con las
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
