@@ -8,6 +8,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/editar_post.css' %}">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    function format(command, value = null) {
+      document.execCommand(command, false, value);
+    }
+
+    function insertCodeBlock() {
+      const editor = document.getElementById('editor');
+      const codeBlock = document.createElement('pre');
+      const code = document.createElement('code');
+      code.innerHTML = 'Tu código aquí...';
+      codeBlock.appendChild(code);
+
+      // Inserta el bloque en la posición actual del cursor
+      const sel = window.getSelection();
+      if (sel.rangeCount) {
+        const range = sel.getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(codeBlock);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelector('form').addEventListener('submit', function (e) {
+        document.getElementById('content').value = document.getElementById('editor').innerHTML;
+      });
+    });
+  </script>
 </head>
 
 <body>
@@ -20,7 +47,37 @@
       <input type="text" id="title" name="title" value="{{ post.title }}">
 
       <label for="content">Contenido:</label>
-      <textarea id="content" name="content" rows="10">{{ post.content}}</textarea>
+      <!-- Barra de herramientas -->
+      <div class="toolbar">
+        <button type="button" onclick="format('bold')"><b>B</b></button>
+        <button type="button" onclick="format('italic')"><i>/</i></button>
+        <button type="button" onclick="format('underline')"><u>U</u></button>
+        <button type="button" onclick="format('justifyLeft')">⯇</button>
+        <button type="button" onclick="format('justifyCenter')">☰</button>
+        <button type="button" onclick="format('justifyRight')">⯈</button>
+        <select onchange="format('fontName', this.value)">
+          <option selected disabled>Fuente</option>
+          <option value="Arial">Arial</option>
+          <option value="Georgia">Georgia</option>
+          <option value="Courier New">Courier New</option>
+          <option value="Times New Roman">Times New Roman</option>
+        </select>
+        <select onchange="format('fontSize', this.value)">
+          <option selected disabled>Tamaño</option>
+          <option value="1">Pequeño</option>
+          <option value="3">Normal</option>
+          <option value="5">Grande</option>
+        </select>
+        <input type="color" onchange="format('foreColor', this.value)" title="Color de texto">
+        <button type="button" onclick="insertCodeBlock()">{ }</button>
+      </div>
+      <!-- Editor -->
+      <div class="contenido" contenteditable="true" id="editor">
+        {% autoescape off %}
+        {{ post.content}}
+        {% endautoescape %}
+      </div>
+      <input type="hidden" name="content" id="content">
 
       <div class="botones">
         <button type="submit" class="btn-primario">Guardar Cambios</button>
