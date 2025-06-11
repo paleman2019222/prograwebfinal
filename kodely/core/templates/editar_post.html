@@ -1,44 +1,19 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-  <title>Editar Post</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'css/editar_post.css' %}">
+  <meta charset="UTF-8">
+  <title>Editar Publicación</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    function format(command, value = null) {
-      document.execCommand(command, false, value);
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/editar_post.css' %}">
 
-    function insertCodeBlock() {
-      const editor = document.getElementById('editor');
-      const codeBlock = document.createElement('pre');
-      const code = document.createElement('code');
-      code.innerHTML = 'Tu código aquí...';
-      codeBlock.appendChild(code);
-
-      // Inserta el bloque en la posición actual del cursor
-      const sel = window.getSelection();
-      if (sel.rangeCount) {
-        const range = sel.getRangeAt(0);
-        range.deleteContents();
-        range.insertNode(codeBlock);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelector('form').addEventListener('submit', function (e) {
-        document.getElementById('content').value = document.getElementById('editor').innerHTML;
-      });
-    });
-  </script>
 </head>
 
 <body>
-
   <div class="card">
     <h2>Editar Publicación</h2>
     <form method="post">
@@ -47,7 +22,6 @@
       <input type="text" id="title" name="title" value="{{ post.title }}">
 
       <label for="content">Contenido:</label>
-      <!-- Barra de herramientas -->
       <div class="toolbar">
         <button type="button" onclick="format('bold')"><b>B</b></button>
         <button type="button" onclick="format('italic')"><i>/</i></button>
@@ -64,27 +38,86 @@
         </select>
         <select onchange="format('fontSize', this.value)">
           <option selected disabled>Tamaño</option>
-          <option value="1">Pequeño</option>
-          <option value="3">Normal</option>
-          <option value="5">Grande</option>
+          <option value="1">10px</option>
+          <option value="2">13px</option>
+          <option value="3">16px</option>
+          <option value="4">18px</option>
+          <option value="5">24px</option>
+          <option value="6">32px</option>
+          <option value="7">48px</option>
         </select>
         <input type="color" onchange="format('foreColor', this.value)" title="Color de texto">
-        <button type="button" onclick="insertCodeBlock()">{ }</button>
+        <button type="button" onclick="insertCodeBlock()">{""}</button>
       </div>
-      <!-- Editor -->
       <div class="contenido" contenteditable="true" id="editor">
         {% autoescape off %}
-        {{ post.content}}
+        {{ post.content }}
         {% endautoescape %}
       </div>
       <input type="hidden" name="content" id="content">
-
       <div class="botones">
         <button type="submit" class="btn-primario">Guardar Cambios</button>
         <a href="{% url 'perfil' %}" class="btn-secundario">Cancelar</a>
       </div>
     </form>
   </div>
+  <script>
+    function format(command, value = null) {
+      document.execCommand(command, false, value);
+    }
+
+    function insertCodeBlock() {
+      const codeBlock = document.createElement("pre");
+      const code = document.createElement("code");
+      code.classList.add("code-block");
+      code.setAttribute("contenteditable", "true");
+      code.innerText = "// Escribe tu código aquí";
+
+      codeBlock.appendChild(code);
+
+      const paragraph = document.createElement("div");
+      paragraph.innerHTML = "<br>";
+
+      const range = window.getSelection().getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(paragraph);
+      range.insertNode(codeBlock);
+
+      // Mover el cursor al final del nuevo espacio
+      const selection = window.getSelection();
+      range.setStart(paragraph, 0);
+      range.setEnd(paragraph, 0);
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      highlightCode();
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Resalta bloques de código al cargar la página
+      document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+
+      // Copia el contenido del editor al input oculto antes de enviar
+      document.querySelector('form').addEventListener('submit', function (e) {
+        document.getElementById('content').value = document.getElementById('editor').innerHTML;
+      });
+
+      // Permite pegar texto plano en bloques de código
+      document.getElementById('editor').addEventListener('paste', function (e) {
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+        const node = sel.anchorNode;
+        const isInsideCode = node && node.parentElement && node.closest("code");
+        if (isInsideCode) {
+          e.preventDefault();
+          const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+          document.execCommand("insertText", false, text);
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
