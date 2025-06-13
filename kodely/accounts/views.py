@@ -148,7 +148,7 @@ def editar_post(request, post_id):
 
     if request.method == 'POST':
         post.title = request.POST.get('title')
-        post.content = request.POST.get('content')
+        post.content = request.POST.get('content').strip()
         post.save()
         return redirect('perfil')
 
