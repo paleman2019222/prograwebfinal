@@ -30,7 +30,6 @@ body {
 
 /* Encabezados */
 h2 {
-    font-family: 'Inter';
     font-weight: 700;
     font-size: 28px;
     color: #003777;
@@ -38,7 +37,6 @@ h2 {
 }
 
 .titulo-publicaciones {
-    font-family: 'Inter';
     font-weight: 700;
     font-size: 22px;
     color: #003777;
@@ -47,7 +45,6 @@ h2 {
 
 /* Información de usuario */
 .email {
-    font-family: 'Inter';
     font-weight: 400;
     font-size: 16px;
     color: #333;
@@ -85,7 +82,6 @@ h2 {
 }
 
 .post-titulo {
-    font-family: 'Inter';
     font-weight: 700;
     font-size: 20px;
     color: #003777;
@@ -93,7 +89,6 @@ h2 {
 }
 
 .post-contenido {
-    font-family: 'Inter';
     font-weight: 300;
     font-size: 16px;
     color: #555;
@@ -111,7 +106,6 @@ h2 {
     text-decoration: none;
     padding: 8px 16px;
     border-radius: 4px;
-    font-family: 'Inter';
     font-weight: 500;
     font-size: 14px;
     transition: all 0.3s ease;
@@ -134,7 +128,6 @@ h2 {
 
 /* Mensaje sin posts */
 .sin-posts {
-    font-family: 'Inter';
     font-weight: 300;
     font-size: 16px;
     color: #777;

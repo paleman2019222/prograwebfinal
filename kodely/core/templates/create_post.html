@@ -57,7 +57,7 @@
           <option value="7">48px</option>
         </select>
 
-        <input type="color" onchange="format('foreColor', this.value)" title="Color de texto">
+        <input type="color" onchange="cleanColor(); format('foreColor', this.value)" title="Color de texto">
         <button type="button" onclick="insertCodeBlock()">{"</>"}</button>
       </div>
 
@@ -140,6 +140,11 @@
         document.execCommand("insertText", false, text);
       }
     });
+
+    function cleanColor() {
+      document.execCommand('removeFormat', false, null);
+    }
+
   </script>
 
 </body>
